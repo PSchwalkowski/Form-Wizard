@@ -9,25 +9,28 @@
 	<body>
 		<form class="form-wizard" id="form">
 			<ul class="form-wizard-steps">
-				<li><a href="#step-1">1</a></li>
-				<li><a href="#step-2">2</a></li>
-				<li><a href="#step-3">3</a></li>
+				<li><a href="#step-1" class="form-wizard-step">1</a></li>
+				<li><a href="#step-2" class="form-wizard-step">2</a></li>
+				<li><a href="#step-3" class="form-wizard-step">3</a></li>
 			</ul>
-			<div id="step-1">
-
+			<div id="step-1" class="test oko 1234">
+				Step 1
 			</div>
-			<div id="step-2">
-
+			<div id="step-2" class="acti ccc">
+				Step 2
 			</div>
 			<div id="step-3">
-
+				Step 3
+			</div>
+			<div class="">
+				<button type="button" name="next" class="form-wizard-prev">< Prev</button>
+				<button type="button" name="next" class="form-wizard-submit">Submit</button>
+				<button type="button" name="next" class="form-wizard-next">Next ></button>
 			</div>
 		</form>
 		<script src="/js/form-wizard.min.js" charset="utf-8"></script>
 		<script type="text/javascript">
-			document.getElementById('form').formWizard({
-				test: 2
-			});
+			// document.getElementById('form').formWizard();
 		</script>
 	</body>
 </html>
