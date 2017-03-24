@@ -46,7 +46,7 @@ gulp.task('js', () => {
   return gulp.src([
                 config.srcPath + 'js/' + config.appFile + '.js',
               ])
-             .pipe(concat(config.appFile + '.min.js'))
+             .pipe(concat(config.appFile + '.compiled.js'))
 						 .pipe(babel({
 			            presets: ['es2015']
 			        }))

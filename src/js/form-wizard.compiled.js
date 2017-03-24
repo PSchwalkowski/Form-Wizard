@@ -27,8 +27,8 @@ var FormWizardClass = function () {
 
 	/**
   * Merge default options with given object
-  * @param  {[type]} options [description]
-  * @return [type]           [description]
+  * @param  {object} options
+  * @return {void}
   */
 
 
@@ -42,7 +42,11 @@ var FormWizardClass = function () {
 					afterStepChange: function afterStepChange() {},
 					submit: function submit() {}
 				},
-				methods: {},
+				methods: {
+					moveStep: function moveStep(index) {
+						this.moveStep(index);
+					}
+				},
 				activeClass: 'active'
 			};
 
@@ -69,6 +73,12 @@ var FormWizardClass = function () {
 
 			this.stepsNavigation = this.wrapper.querySelectorAll('.form-wizard-step');
 			this.steps = this.wrapper.querySelectorAll('[id^="step-"]');
+
+			if (this.wrapper.tagName === 'FORM') {
+				this.form = this.wrapper;
+			} else {
+				this.form = this.wrapper.querySelector('form');
+			}
 		}
 
 		/**
@@ -128,6 +138,10 @@ var FormWizardClass = function () {
 					_this.buttonsNavigation.next.show();
 				}
 			});
+
+			this.form.addEventListener('submit', function (event) {
+				_this._runEvent('submit', event);
+			});
 		}
 
 		/**
@@ -156,6 +170,8 @@ var FormWizardClass = function () {
 			activeStepNav.addClass(this.options.activeClass);
 
 			this._runEvent('afterStepChange', event);
+
+			return this;
 		}
 	}]);
 
@@ -221,5 +237,3 @@ Element.prototype.removeClass = function (className) {
 Element.prototype.formWizard = function (options) {
 	return new FormWizardClass(this, options);
 };
-
-document.getElementById('form').formWizard();

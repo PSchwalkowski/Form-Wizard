@@ -20,8 +20,8 @@ class FormWizardClass {
 
 	/**
 	 * Merge default options with given object
-	 * @param  {[type]} options [description]
-	 * @return [type]           [description]
+	 * @param  {object} options
+	 * @return {void}
 	 */
 	_initOptions(options) {
 		const defaultOptions = {
@@ -32,7 +32,9 @@ class FormWizardClass {
 				submit: function() {},
 			},
 			methods: {
-
+				moveStep: function(index) {
+					this.moveStep(index);
+				}
 			},
 			activeClass: 'active'
 		}
@@ -57,6 +59,12 @@ class FormWizardClass {
 
 		this.stepsNavigation = this.wrapper.querySelectorAll('.form-wizard-step');
 		this.steps = this.wrapper.querySelectorAll('[id^="step-"]');
+
+		if (this.wrapper.tagName === 'FORM') {
+			this.form = this.wrapper;
+		} else {
+			this.form = this.wrapper.querySelector('form');
+		}
 	}
 
 	/**
@@ -108,6 +116,10 @@ class FormWizardClass {
 				this.buttonsNavigation.next.show();
 			}
 		});
+
+		this.form.addEventListener('submit', event => {
+			this._runEvent('submit', event);
+		});
 	}
 
 	/**
@@ -131,6 +143,8 @@ class FormWizardClass {
 		activeStepNav.addClass(this.options.activeClass);
 
 		this._runEvent('afterStepChange', event);
+
+		return this;
 	}
 }
 
@@ -196,7 +210,3 @@ Element.prototype.removeClass = function(className) {
 Element.prototype.formWizard = function(options) {
 	return new FormWizardClass(this, options);
 };
-
-
-
-document.getElementById('form').formWizard();
